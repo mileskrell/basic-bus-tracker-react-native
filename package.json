@@ -5,7 +5,8 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "patch-package"
   },
   "dependencies": {
     "@react-native-community/viewpager": "^1.1.7",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/runtime": "^7.5.4",
     "@react-native-community/eslint-config": "^0.0.5",
@@ -25,6 +27,8 @@
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.55.0",
+    "patch-package": "^6.1.2",
+    "postinstall-prepare": "^1.0.1",
     "prettier": "^1.18.2",
     "react-test-renderer": "16.8.6"
   },
