@@ -8,7 +8,7 @@ export default class BusViewModel {
   @observable routes = [];
 
   @action
-  loadRoutes;
+  loadRoutes = () => {};
 
   @action
   addRoute = route => {
