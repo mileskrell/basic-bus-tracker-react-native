@@ -1,30 +1,54 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import ViewPager from "@react-native-community/viewpager";
+import { observer } from "mobx-react";
 import BusViewModel from "./BusViewModel";
+import RouteDisplay from "./components/route-display";
 
+@observer
 class App extends React.Component {
-  render() {
-    const model = new BusViewModel();
+  model = new BusViewModel();
 
+  render() {
     return (
-      <ViewPager style={styles.viewPager} initialPage={0}>
-        <View key="1">
-          <Text>First page</Text>
-        </View>
-        <View key="2">
-          <Text>Second page</Text>
-        </View>
-      </ViewPager>
+      <View style={styles.fillSpace}>
+        <ViewPager style={styles.viewPager} initialPage={0}>
+          {this.model.routes.length > 0 &&
+            this.model.routes.map(route => (
+              <View key={route.routeName}>
+                <RouteDisplay route={route} />
+              </View>
+            ))}
+          {this.model.routes.length === 0 && (
+            <View style={styles.loadingView}>
+              <ActivityIndicator size={"large"} />
+              <Text style={styles.loadingText}>
+                Getting arrival estimates...
+              </Text>
+            </View>
+          )}
+        </ViewPager>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  fillSpace: {
+    flex: 1
+  },
   viewPager: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
+  },
+  loadingView: {
+    flex: 1,
+    paddingTop: "20%",
+    alignItems: "center"
+  },
+  loadingText: {
+    marginTop: "5%"
   }
 });
 
