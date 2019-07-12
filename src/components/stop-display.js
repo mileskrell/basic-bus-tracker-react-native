@@ -26,7 +26,11 @@ const styles = StyleSheet.create({
   stopDisplay: {
     width: "100%",
     alignItems: "center",
-    marginBottom: "5%"
+    padding: 5,
+    marginBottom: "5%",
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: "#aaaaaa"
   },
   stopName: {
     fontWeight: "bold"

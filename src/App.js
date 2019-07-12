@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import ViewPager from "@react-native-community/viewpager";
 import { observer } from "mobx-react";
-import BusViewModel from "./BusViewModel";
+import BusViewModel from "./model/BusViewModel";
 import RouteDisplay from "./components/route-display";
 
 @observer
