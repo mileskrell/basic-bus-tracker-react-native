@@ -11,7 +11,7 @@ import StopDisplay from "./stop-display";
 class RouteDisplay extends React.Component {
   render() {
     return (
-      <View key={this.props.route.routeName}>
+      <View style={styles.fillSpace} key={this.props.route.routeName}>
         <Text style={[styles.busHeader, { color: this.props.route.routeColor }]}>
           {this.props.route.routeName}
         </Text>
@@ -29,6 +29,9 @@ class RouteDisplay extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  fillSpace: {
+    flex: 1
+  },
   busHeader: {
     marginTop: "10%",
     marginBottom: "10%",
