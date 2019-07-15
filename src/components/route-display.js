@@ -12,7 +12,9 @@ class RouteDisplay extends React.Component {
   render() {
     return (
       <View key={this.props.route.routeName}>
-        <Text style={styles.busHeader}>{this.props.route.routeName}</Text>
+        <Text style={[styles.busHeader, { color: this.props.route.routeColor }]}>
+          {this.props.route.routeName}
+        </Text>
         <FlatList
           contentContainerStyle={styles.list}
           keyExtractor={(item, index) => item.stopName}
