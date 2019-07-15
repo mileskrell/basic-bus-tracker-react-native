@@ -2,21 +2,46 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 class StopDisplay extends React.Component {
-  getStopString = stop => {
-    let result = ": ";
-
-    for (let i = 0; i < stop.arrivalEstimates.length; i++) {
-      result += stop.arrivalEstimates[i] + ", ";
+  getEstimateString = arrivalEstimates => {
+    if (arrivalEstimates.length === 0) {
+      return "No estimated arrivals";
     }
 
-    return result.substring(0, result.length) + "minutes";
+    const now = new Date().getTime();
+
+    const times = arrivalEstimates
+      .map(timestamp => new Date(timestamp).getTime() - now)
+      .map(ms => ms / 1000 / 60)
+      .map(estimate => Math.round(estimate));
+
+    switch (times.length) {
+      case 1:
+        switch (times[0]) {
+          case "0":
+            return "Arriving now";
+          case "1":
+            return "Arriving in 1 minute";
+          default:
+            return `Arriving in ${times[0]} minutes`;
+        }
+      case 2:
+        return `Arriving in ${times[0]} and ${times[1]} minutes`;
+    }
+
+    let timesString = "Arriving in ";
+    for (let i = 0; i < times.length - 1; i++) {
+      timesString += times[i] + ", ";
+    }
+    timesString += `and ${times[times.length - 1]} minutes`;
+
+    return timesString;
   };
 
   render() {
     return (
       <View style={styles.stopDisplay}>
         <Text style={styles.stopName}>{this.props.stop.stopName + ":"}</Text>
-        <Text>{this.props.stop.arrivalEstimates.join(", ")}</Text>
+        <Text>{this.getEstimateString(this.props.stop.arrivalEstimates)}</Text>
       </View>
     );
   }
