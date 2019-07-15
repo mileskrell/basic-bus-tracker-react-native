@@ -4,18 +4,18 @@ import { fetchFakeRoutes, fetchRoutes } from "../repo/repository";
 export default class BusViewModel {
   /**
    * Array of routes
-   * @type {Array}
+   * @see fetchFakeRoutes for the structure
    */
   @observable routes = [];
 
   constructor() {
-    this.loadFakeRoutes();
-    // this.loadRoutes();
+    // this.loadFakeRoutes();
+    this.loadRoutes();
   }
 
   @action
   loadRoutes = async () => {
-    this.routes = fetchRoutes();
+    this.routes = await fetchRoutes();
   };
 
   @action
