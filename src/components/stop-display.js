@@ -2,17 +2,21 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 class StopDisplay extends React.Component {
-  getEstimateString = arrivalEstimates => {
-    if (arrivalEstimates.length === 0) {
-      return "No estimated arrivals";
-    }
-
+  prepareArrivalEstimates = () => {
     const now = new Date().getTime();
 
-    const times = arrivalEstimates
+    return this.props.stop.arrivalEstimates
       .map(timestamp => new Date(timestamp).getTime() - now)
       .map(ms => ms / 1000 / 60)
       .map(estimate => Math.round(estimate));
+  };
+
+  getEstimateString = () => {
+    const times = this.prepareArrivalEstimates();
+
+    if (times.length === 0) {
+      return "No estimated arrivals";
+    }
 
     switch (times.length) {
       case 1:
@@ -37,11 +41,28 @@ class StopDisplay extends React.Component {
     return timesString;
   };
 
+  getTextColor = () => {
+    const arrivalEstimates = this.prepareArrivalEstimates();
+
+    if (arrivalEstimates.length === 0) {
+      return;
+    }
+    if (Math.min(...arrivalEstimates) <= 5) {
+      return "#db4437"; // red
+    }
+    if (Math.min(...arrivalEstimates) <= 10) {
+      return "#f4b400"; // yellow
+    }
+    return "#4285f4"; // blue
+  };
+
   render() {
     return (
       <View style={styles.stopDisplay}>
         <Text style={styles.stopName}>{this.props.stop.stopName + ":"}</Text>
-        <Text>{this.getEstimateString(this.props.stop.arrivalEstimates)}</Text>
+        <Text style={{ color: this.getTextColor() }}>
+          {this.getEstimateString()}
+        </Text>
       </View>
     );
   }
