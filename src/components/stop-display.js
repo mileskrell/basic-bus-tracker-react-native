@@ -60,7 +60,7 @@ class StopDisplay extends React.Component {
     return (
       <View style={styles.stopDisplay}>
         <Text style={styles.stopName}>{this.props.stop.stopName + ":"}</Text>
-        <Text style={{ color: this.getTextColor() }}>
+        <Text style={[styles.stopEstimates, { color: this.getTextColor() }]}>
           {this.getEstimateString()}
         </Text>
       </View>
@@ -70,8 +70,8 @@ class StopDisplay extends React.Component {
 
 const styles = StyleSheet.create({
   stopDisplay: {
-    width: "100%",
-    alignItems: "center",
+    width: "90%",
+    alignSelf: "center",
     padding: 5,
     marginBottom: "5%",
     borderWidth: 2,
@@ -79,7 +79,11 @@ const styles = StyleSheet.create({
     borderColor: "#aaaaaa"
   },
   stopName: {
+    alignSelf: "center",
     fontWeight: "bold"
+  },
+  stopEstimates: {
+    alignSelf: "center"
   }
 });
 
