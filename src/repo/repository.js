@@ -134,6 +134,7 @@ export async function fetchRoutes() {
     });
   });
 
+  // Sort routes alphabetically
   returnMeRoutes = returnMeRoutes.sort((routeA, routeB) => {
     if (routeA.routeName < routeB.routeName) {
       return -1;
@@ -146,15 +147,30 @@ export async function fetchRoutes() {
     return 0;
   });
 
-  // Move RBHS to the end if there's <= 3 routes
-  if (
-    returnMeRoutes.length > 0 &&
-    returnMeRoutes.length < 4 &&
-    returnMeRoutes[0].routeName === "Route RBHS"
-  ) {
-    const rbhs = returnMeRoutes.shift();
-    returnMeRoutes.push(rbhs);
-  }
+  // Move certain routes to the front if present:
+  moveRouteToFront(returnMeRoutes, "Summer 2");
+  moveRouteToFront(returnMeRoutes, "Summer 1");
+  // Hopefully I got the winter break capitalization right
+  moveRouteToFront(returnMeRoutes, "Winter Break 2");
+  moveRouteToFront(returnMeRoutes, "Winter Break 1");
+  moveRouteToFront(returnMeRoutes, "Weekend 2");
+  moveRouteToFront(returnMeRoutes, "Weekend 1");
+  moveRouteToFront(returnMeRoutes, "Route All Campuses");
 
   return returnMeRoutes;
+}
+
+/**
+ * Move a route to the front of a routes object
+ *
+ * @param routes routes object to modify
+ * @param routeName name of route to move to front
+ */
+function moveRouteToFront(routes, routeName) {
+  const routeIndex = routes.map(route => route.routeName).indexOf(routeName);
+
+  if (routeIndex !== -1) {
+    const route = routes.splice(routeIndex, 1)[0];
+    routes.unshift(route);
+  }
 }
