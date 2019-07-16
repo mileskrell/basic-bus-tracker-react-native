@@ -16,7 +16,7 @@ class App extends React.Component {
           {this.model.routes.length > 0 &&
             this.model.routes.map(route => (
               <View key={route.routeName}>
-                <RouteDisplay route={route} />
+                <RouteDisplay model={this.model} route={route} />
               </View>
             ))}
           {this.model.routes.length === 0 && (
