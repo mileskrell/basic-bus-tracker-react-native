@@ -80,10 +80,12 @@ const styles = StyleSheet.create({
   },
   stopName: {
     alignSelf: "center",
+    textAlign: "center",
     fontWeight: "bold"
   },
   stopEstimates: {
-    alignSelf: "center"
+    alignSelf: "center",
+    textAlign: "center"
   }
 });
 
