@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   busHeader: {
-    marginTop: "10%",
-    marginBottom: "10%",
+    marginTop: "5%",
+    marginBottom: "5%",
     alignSelf: "center",
     fontSize: 20
   }
